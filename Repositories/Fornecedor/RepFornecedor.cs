@@ -1,10 +1,18 @@
 ﻿using api_contas_pagar.DTOs.Fornecedor;
 using api_contas_pagar.Models;
+using Microsoft.AspNetCore.Connections;
 
-namespace api_contas_pagar.Repositories
+namespace api_contas_pagar
 {
     public class RepFornecedor : IRepFornecedor
     {
+        private readonly ConnectionContext _connectionContext;
+
+        public RepFornecedor(ConnectionContext connectionContext)
+        {
+            _connectionContext = connectionContext;
+        }
+
         public Fornecedor Alterar(AlterarFornecedorDTO dto)
         {
             throw new NotImplementedException();
@@ -12,7 +20,9 @@ namespace api_contas_pagar.Repositories
 
         public List<Fornecedor> ListarFornecedores()
         {
-            throw new NotImplementedException();
+            var fornecedores = _connectionContext.fornecedores.ToList();
+
+            return fornecedores;
         }
 
         public Fornecedor ListarFornecedorPorId(int id)
@@ -25,9 +35,12 @@ namespace api_contas_pagar.Repositories
             throw new NotImplementedException();
         }
 
-        public void Salvar(SalvarFornecedorDTO dto)
+        public Fornecedor Salvar(Fornecedor fornecedor)
         {
-            throw new NotImplementedException();
+            _connectionContext.fornecedores.Add(fornecedor);
+            _connectionContext.SaveChanges();
+
+            return fornecedor;
         }
     }
 }

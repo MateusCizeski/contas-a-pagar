@@ -5,8 +5,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Services.AddDbContext<ContasAPagarContext>(options =>
-            options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<ConnectionContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
+    .EnableSensitiveDataLogging()
+    .LogTo(Console.WriteLine, LogLevel.Information));
+
+builder.Services.AddTransient<IRepFornecedor, RepFornecedor>();
+
+builder.Services.AddScoped<IRepFornecedor, RepFornecedor>();
+builder.Services.AddScoped<IServFornecedor, ServFornecedor>();
+builder.Services.AddScoped<IAplicFornecedor, AplicFornecedor>();
+builder.Services.AddScoped<IMapperFornecedor, MapperFornecedor>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

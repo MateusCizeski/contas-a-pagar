@@ -1,4 +1,5 @@
 ﻿using api_contas_pagar.DTOs;
+using api_contas_pagar.DTOs.Fornecedor;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api_contas_pagar.Controllers
@@ -15,7 +16,7 @@ namespace api_contas_pagar.Controllers
         }
 
         [HttpPost]
-        public IActionResult SalvarFornecedor(SalvarFornecedorDTO dto)
+        public IActionResult SalvarFornecedor([FromBody] SalvarFornecedorDTO dto)
         {
             var fornecedor = _aplicFornecedor.Salvar(dto);
 
@@ -29,5 +30,32 @@ namespace api_contas_pagar.Controllers
 
             return Ok(fornecedores);
         }
+
+        [HttpGet]
+        [Route("/{id}")]
+        public IActionResult ListarFornecedorPorId([FromRoute] int id)
+        {
+            var fornecedor = _aplicFornecedor.ListarFornecedorPorId(id);
+
+            return Ok(fornecedor);
+        }
+
+        [HttpPut]
+        public IActionResult Alterar([FromBody] AlterarFornecedorDTO dto)
+        {
+            var fornecedor = _aplicFornecedor.Alterar(dto);
+
+            return Ok(fornecedor);
+        }
+
+        [HttpDelete]
+        [Route("/{id}")]
+        public IActionResult Remover([FromRoute] int id)
+        {
+            _aplicFornecedor.Remover(id);
+
+            return Ok();
+        }
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using api_contas_pagar.DTOs;
+using api_contas_pagar.DTOs.Fornecedor;
 using api_contas_pagar.Models;
 
 namespace api_contas_pagar
@@ -27,6 +28,27 @@ namespace api_contas_pagar
             var fornecedor = _servFornecedor.SalvarFornecedor(mapperFornec);
 
             return fornecedor.Id;
+        }
+
+        public Fornecedor ListarFornecedorPorId(int id)
+        {
+            var fornecedor = _servFornecedor.ListarFornecedorPorId(id);
+
+            return fornecedor;
+        }
+
+        public Fornecedor Alterar(AlterarFornecedorDTO dto)
+        {
+            var fornecedor = _servFornecedor.ListarFornecedorPorId(dto.Id);
+            _mapperFornecedor.MapearEdicao(dto, fornecedor);
+
+            return fornecedor;
+        }
+
+        public void Remover(int id)
+        {
+            var fornecedor = _servFornecedor.ListarFornecedorPorId(id);
+            _servFornecedor.Remover(fornecedor);
         }
     }
 }

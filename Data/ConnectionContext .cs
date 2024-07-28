@@ -7,7 +7,7 @@ namespace api_contas_pagar
     {
         public ConnectionContext(DbContextOptions<ConnectionContext> options) : base(options) { }
 
-        public DbSet<Fornecedor> fornecedores { get; set; }
+        public DbSet<Fornecedor> Fornecedores { get; set; }
         public DbSet<Fatura> Faturas { get; set; }
         public DbSet<Pagamento> Pagamentos { get; set; }
         public DbSet<FaturaPagamento> FaturaPagamentos { get; set; }

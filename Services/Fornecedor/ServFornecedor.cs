@@ -24,5 +24,24 @@ namespace api_contas_pagar
 
             return fornecedores;
         }
+
+        public Fornecedor ListarFornecedorPorId(int id)
+        {
+            var fornecedor = _repFornecedor.ListarFornecedorPorId(id);
+
+            return fornecedor;
+        }
+
+        public Fornecedor Alterar(Fornecedor fornecedor)
+        {
+            var fornec = _repFornecedor.Alterar(fornecedor);
+
+            return fornec;
+        }
+
+        public void Remover(Fornecedor fornecedor)
+        {
+            _repFornecedor.RemoverFornecedor(fornecedor);
+        }
     }
 }

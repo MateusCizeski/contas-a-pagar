@@ -1,4 +1,4 @@
-﻿namespace api_contas_pagar.DTOs.Fornecedor
+﻿namespace api_contas_pagar.DTOs
 {
     public class SalvarFornecedorDTO
     {

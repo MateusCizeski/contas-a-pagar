@@ -5,7 +5,7 @@ namespace api_contas_pagar
 {
     public interface IRepFornecedor
     {
-        public void Salvar(SalvarFornecedorDTO dto);
+        public Fornecedor Salvar(Fornecedor fornecedor);
         public Fornecedor Alterar(AlterarFornecedorDTO dto);
         public List<Fornecedor> ListarFornecedores();
         public Fornecedor ListarFornecedorPorId(int id);

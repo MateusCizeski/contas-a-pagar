@@ -32,7 +32,7 @@ namespace api_contas_pagar.Controllers
         }
 
         [HttpGet]
-        [Route("/{id}")]
+        [Route("ListarFornecedorPorId/{id}")]
         public IActionResult ListarFornecedorPorId([FromRoute] int id)
         {
             var fornecedor = _aplicFornecedor.ListarFornecedorPorId(id);
@@ -49,13 +49,12 @@ namespace api_contas_pagar.Controllers
         }
 
         [HttpDelete]
-        [Route("/{id}")]
+        [Route("Fornecedor/{id}")]
         public IActionResult Remover([FromRoute] int id)
         {
             _aplicFornecedor.Remover(id);
 
             return Ok();
         }
-
     }
 }

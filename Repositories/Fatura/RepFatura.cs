@@ -1,33 +1,55 @@
-﻿using api_contas_pagar.DTOs.Fatura;
-using api_contas_pagar.Models;
+﻿using api_contas_pagar.Models;
 
 namespace api_contas_pagar
 {
     public class RepFatura : IRepFatura
     {
-        public Fatura AlterarFatura(AlterarFaturaDTO dto)
+        private readonly ConnectionContext _connectionContext;
+
+        public RepFatura(ConnectionContext connectionContext)
         {
-            throw new NotImplementedException();
+            _connectionContext = connectionContext;
+        }
+
+        public Fatura AlterarFatura(Fatura fatura)
+        {
+            _connectionContext.Faturas.Update(fatura);
+            _connectionContext.SaveChanges();
+
+            return fatura;
         }
 
         public Fatura ListarFaturaPorId(int id)
         {
-            throw new NotImplementedException();
+            var fatura = _connectionContext.Faturas.Where(f => f.Id == id).FirstOrDefault();
+
+            if (fatura == null)
+            {
+                throw new Exception("Fatura não encontrado.");
+            }
+
+            return fatura;
         }
 
         public List<Fatura> ListarFaturas()
         {
-            throw new NotImplementedException();
+            var faturas = _connectionContext.Faturas.ToList();
+
+            return faturas;
         }
 
-        public void RemoverFatura(int id)
+        public void RemoverFatura(Fatura fatura)
         {
-            throw new NotImplementedException();
+            _connectionContext.Faturas.Remove(fatura);
+            _connectionContext.SaveChanges();
         }
 
-        public void SalvarFatura(SalvarFaturaDTO dto)
+        public Fatura SalvarFatura(Fatura fatura)
         {
-            throw new NotImplementedException();
+            _connectionContext.Faturas.Add(fatura);
+            _connectionContext.SaveChanges();
+
+            return fatura;
         }
     }
 }

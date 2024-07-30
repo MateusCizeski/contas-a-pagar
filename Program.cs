@@ -10,12 +10,19 @@ builder.Services.AddDbContext<ConnectionContext>(options =>
     .EnableSensitiveDataLogging()
     .LogTo(Console.WriteLine, LogLevel.Information));
 
+//FORNECEDOR
 builder.Services.AddTransient<IRepFornecedor, RepFornecedor>();
-
 builder.Services.AddScoped<IRepFornecedor, RepFornecedor>();
 builder.Services.AddScoped<IServFornecedor, ServFornecedor>();
 builder.Services.AddScoped<IAplicFornecedor, AplicFornecedor>();
 builder.Services.AddScoped<IMapperFornecedor, MapperFornecedor>();
+
+//Fatura
+builder.Services.AddTransient<IRepFatura, RepFatura>();
+builder.Services.AddScoped<IRepFatura, RepFatura>();
+builder.Services.AddScoped<IServFatura, ServFatura>();
+builder.Services.AddScoped<IAplicFatura, AplicFatura>();
+builder.Services.AddScoped<IMapperFatura, MapperFatura>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

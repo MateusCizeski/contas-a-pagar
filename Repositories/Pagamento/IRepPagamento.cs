@@ -1,6 +1,6 @@
 ﻿namespace api_contas_pagar
 {
-    public class IRepPagamento
+    public interface IRepPagamento
     {
     }
 }

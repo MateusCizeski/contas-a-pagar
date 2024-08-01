@@ -6,6 +6,6 @@ namespace api_contas_pagar
     public interface IMapperFatura
     {
         public Fatura MapearInsercao(SalvarFaturaDTO dto);
-        public void MapearEdicao(AlterarFaturaDTO dto, Fatura fatura);
+        public Fatura MapearEdicao(AlterarFaturaDTO dto, Fatura fatura);
     }
 }

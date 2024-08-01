@@ -16,14 +16,9 @@ namespace api_contas_pagar
         public Pagamento Alterar(AlterarPagamentoDTO dto)
         {
             var pagamento = _servPagamento.ListarPagamentoPorId(dto.Id);
-            var mapperPag = _mapperPagamento.MapearEdicao(dto, pagamento);
+            var mapper = _mapperPagamento.MapearEdicao(dto, pagamento);
 
-            if(mapperPag == null)
-            {
-                throw new Exception("Pagamento não encontrado.");
-            }
-
-            return _servPagamento.Alterar(mapperPag);
+            return _servPagamento.Alterar(mapper);
         }
 
         public Pagamento ListarPagamentoPorId(int id)

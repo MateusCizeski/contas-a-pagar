@@ -7,6 +7,6 @@ namespace api_contas_pagar
     public interface IMapperFornecedor
     {
         public Fornecedor MapearInsercao(SalvarFornecedorDTO dto);
-        public void MapearEdicao(AlterarFornecedorDTO dto, Fornecedor fornecedor);
+        public Fornecedor MapearEdicao(AlterarFornecedorDTO dto, Fornecedor fornecedor);
     }
 }

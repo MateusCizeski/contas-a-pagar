@@ -6,13 +6,15 @@ namespace api_contas_pagar
 {
     public class MapperFatura : IMapperFatura
     {
-        public void MapearEdicao(AlterarFaturaDTO dto, Fatura fatura)
+        public Fatura MapearEdicao(AlterarFaturaDTO dto, Fatura fatura)
         {
             fatura.CodigoFornecedor = dto.CodigoFornecedor;
             fatura.Valor = dto.Valor;
             fatura.Data_vencimento = dto.Data_vencimento;
             fatura.Pago = dto.Pago;
             fatura.Status = dto.Status;
+
+            return fatura;
     }
 
         public Fatura MapearInsercao(SalvarFaturaDTO dto)

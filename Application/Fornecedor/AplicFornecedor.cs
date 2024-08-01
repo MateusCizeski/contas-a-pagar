@@ -40,9 +40,9 @@ namespace api_contas_pagar
         public Fornecedor Alterar(AlterarFornecedorDTO dto)
         {
             var fornecedor = _servFornecedor.ListarFornecedorPorId(dto.Id);
-            _mapperFornecedor.MapearEdicao(dto, fornecedor);
+            var mapper = _mapperFornecedor.MapearEdicao(dto, fornecedor);
 
-            return fornecedor;
+            return _servFornecedor.Alterar(mapper);
         }
 
         public void Remover(int id)

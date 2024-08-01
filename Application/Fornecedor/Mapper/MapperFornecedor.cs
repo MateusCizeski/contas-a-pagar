@@ -18,11 +18,13 @@ namespace api_contas_pagar
             return fornecedor;
         }
 
-        public void MapearEdicao(AlterarFornecedorDTO dto, Fornecedor fornecedor)
+        public Fornecedor MapearEdicao(AlterarFornecedorDTO dto, Fornecedor fornecedor)
         {
             fornecedor.Nome = dto.Nome;
             fornecedor.Endereco = dto.Endereco;
             fornecedor.Telefone = dto.Telefone;
+
+            return fornecedor;
         }
     }
 }

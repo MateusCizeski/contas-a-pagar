@@ -1,40 +1,58 @@
 ﻿using api_contas_pagar.Models;
-using api_contas_pagar.Services.Pagamento;
 
 namespace api_contas_pagar
 {
     public class AplicPagamento : IAplicPagamento
     {
         private readonly IServPagamento _servPagamento;
+        private readonly IMapperPagamento _mapperPagamento;
 
-        public AplicPagamento(IServPagamento servPagamento)
+        public AplicPagamento(IServPagamento servPagamento, IMapperPagamento mapperPagamento)
         {
             _servPagamento = servPagamento;
+            _mapperPagamento = mapperPagamento;
         }
 
-        public Fatura Alterar(AlterarPagamentoDTO dto)
+        public Pagamento Alterar(AlterarPagamentoDTO dto)
         {
-            throw new NotImplementedException();
+            var pagamento = _servPagamento.ListarPagamentoPorId(dto.Id);
+            var mapperPag = _mapperPagamento.MapearEdicao(dto, pagamento);
+
+            if(mapperPag == null)
+            {
+                throw new Exception("Pagamento não encontrado.");
+            }
+
+            return _servPagamento.Alterar(mapperPag);
         }
 
-        public Fatura ListarPagamentoPorId(int id)
+        public Pagamento ListarPagamentoPorId(int id)
         {
-            throw new NotImplementedException();
+            var pagamento = _servPagamento.ListarPagamentoPorId(id);
+
+            return pagamento;
         }
 
         public List<Pagamento> ListarPagamentos()
         {
-            throw new NotImplementedException();
+            var pagamentos = _servPagamento.ListarPagamentos();
+
+            return pagamentos;
         }
 
         public void Remover(int id)
         {
-            throw new NotImplementedException();
+            var pagamento = _servPagamento.ListarPagamentoPorId(id);
+
+            _servPagamento.Remover(pagamento);
         }
 
         public int Salvar(SalvarPagamentoDTO dto)
         {
-            throw new NotImplementedException();
+            var mapperPagamento = _mapperPagamento.MapearInsercao(dto);
+            var pagamento = _servPagamento.Salvar(mapperPagamento);
+
+            return pagamento.Id;
         }
     }
 }

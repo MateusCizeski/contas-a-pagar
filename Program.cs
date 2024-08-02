@@ -1,4 +1,6 @@
 using api_contas_pagar;
+using api_contas_pagar.Repositories;
+using api_contas_pagar.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -30,6 +32,13 @@ builder.Services.AddScoped<IRepPagamento, RepPagamento>();
 builder.Services.AddScoped<IServPagamento, ServPagamento>();
 builder.Services.AddScoped<IAplicPagamento, AplicPagamento>();
 builder.Services.AddScoped<IMapperPagamento, MapperPagamento>();
+
+//Metodo de pagamento
+builder.Services.AddTransient<IRepMetodoPagamento, RepMetodoPagamento>();
+builder.Services.AddScoped<IRepMetodoPagamento, RepMetodoPagamento>();
+builder.Services.AddScoped<IServMetodoPagamento, ServMetodoPagamento>();
+builder.Services.AddScoped<IAplicMetodoPagamento, AplicMetodoPagamento>();
+builder.Services.AddScoped<IMapperMetodoPagamento, MapperMetodoPagamento>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

@@ -17,9 +17,9 @@ namespace api_contas_pagar
         public Fatura Alterar(AlterarFaturaDTO dto)
         {
             var fatura = _servFatura.ListarFaturaPorId(dto.Id);
-            var mapper = _mapperFatura.MapearEdicao(dto, fatura);
+            _mapperFatura.MapearEdicao(dto, fatura);
 
-            return _servFatura.Alterar(mapper);
+            return _servFatura.Alterar(fatura);
         }
 
         public List<Fatura> ListarFaturas()

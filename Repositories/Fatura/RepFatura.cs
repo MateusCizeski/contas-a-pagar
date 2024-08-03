@@ -13,6 +13,8 @@ namespace api_contas_pagar
 
         public Fatura AlterarFatura(Fatura fatura)
         {
+            fatura.Data_vencimento = DateTime.SpecifyKind(fatura.Data_vencimento, DateTimeKind.Utc);
+
             _connectionContext.Faturas.Update(fatura);
             _connectionContext.SaveChanges();
 
@@ -46,6 +48,8 @@ namespace api_contas_pagar
 
         public Fatura SalvarFatura(Fatura fatura)
         {
+            fatura.Data_vencimento = DateTime.SpecifyKind(fatura.Data_vencimento, DateTimeKind.Utc);
+
             _connectionContext.Faturas.Add(fatura);
             _connectionContext.SaveChanges();
 

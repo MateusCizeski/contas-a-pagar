@@ -56,8 +56,15 @@ namespace api_contas_pagar
         public FaturaPagamento Salvar(FaturaPagamento faturaPagamento)
         {
             var fatura = _connectionContext.Faturas.Find(faturaPagamento.CodigoFatura);
+            var reg = _connectionContext.FaturaPagamentos.Where(fp => fp.CodigoPagamento == faturaPagamento.CodigoPagamento &&
+                                                                                   fp.CodigoFatura == faturaPagamento.CodigoFatura).FirstOrDefault();
 
-            if(fatura == null)
+            if(reg != null)
+            {
+                throw new Exception("Pagamento e fatura já associados.");
+            }
+
+            if (fatura == null)
             {
                 throw new Exception($"Fatura de código {faturaPagamento.CodigoFatura} não encontrado.");
             }
@@ -80,8 +87,9 @@ namespace api_contas_pagar
         public void AtualizarStatusFatura(Fatura fatura)
         {
             decimal somaPagamentos = fatura.FaturaPagamentos.Sum(fp => fp.ValorPago);
+            fatura.Data_vencimento = DateTime.SpecifyKind(fatura.Data_vencimento, DateTimeKind.Utc);
 
-            if(DateTime.Now > fatura.Data_vencimento)
+            if (DateTime.UtcNow > fatura.Data_vencimento)
             {
                 fatura.Status = StatusFatura.Vencida;
             }else

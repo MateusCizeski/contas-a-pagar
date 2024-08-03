@@ -40,6 +40,13 @@ builder.Services.AddScoped<IServMetodoPagamento, ServMetodoPagamento>();
 builder.Services.AddScoped<IAplicMetodoPagamento, AplicMetodoPagamento>();
 builder.Services.AddScoped<IMapperMetodoPagamento, MapperMetodoPagamento>();
 
+//Faturas Pagamentos
+builder.Services.AddTransient<IRepFaturaPagamento, RepFaturaPagamento>();
+builder.Services.AddScoped<IRepFaturaPagamento, RepFaturaPagamento>();
+builder.Services.AddScoped<IServFaturaPagamento, ServFaturaPagamento>();
+builder.Services.AddScoped<IAplicFaturaPagamento, AplicFaturaPagamento>();
+builder.Services.AddScoped<IMapperFaturaPagamento, MapperFaturaPagamento>();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

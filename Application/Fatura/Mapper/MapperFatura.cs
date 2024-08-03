@@ -23,9 +23,9 @@ namespace api_contas_pagar
             {
                 CodigoFornecedor = dto.CodigoFornecedor,
                 Valor = dto.Valor,
-                Data_vencimento = dto.Data_vencimento,
-                Pago = dto.Pago,
-                Status = dto.Status
+                Data_vencimento = DateTime.UtcNow,
+                Pago = false,
+                Status = StatusFatura.Pendente
             };
             
             return fatura;

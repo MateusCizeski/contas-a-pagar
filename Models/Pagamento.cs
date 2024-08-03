@@ -18,7 +18,11 @@ namespace api_contas_pagar.Models
 
         [Column("codigo_metodo_pagamento")]
         public int CodigoMetodoPagamento { get; set; }
+
+        [Column("codigo_fatura")]
+        public int? CodigoFatura { get; set; }
         public MetodoPagamento MetodoPagamento { get; set; }
         public ICollection<FaturaPagamento> FaturaPagamentos { get; set; }
+        public Fatura Fatura { get; set; }
     }
 }

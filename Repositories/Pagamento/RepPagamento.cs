@@ -46,10 +46,10 @@ namespace api_contas_pagar
 
         public Pagamento Salvar(Pagamento pagamento)
         {
-            _connectionContext.Pagamentos.Add(pagamento);
-            _connectionContext.SaveChanges();
+           _connectionContext.Pagamentos.Add(pagamento);
+           _connectionContext.SaveChanges();
 
-            return pagamento;
+           return pagamento;
         }
     }
 }

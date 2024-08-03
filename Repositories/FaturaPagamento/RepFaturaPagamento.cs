@@ -1,4 +1,5 @@
 ﻿using api_contas_pagar.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace api_contas_pagar
 {
@@ -15,6 +16,13 @@ namespace api_contas_pagar
         {
             _connectionContext.FaturaPagamentos.Update(faturaPagamento);
             _connectionContext.SaveChanges();
+
+            var fatura = _connectionContext.Faturas.Include(f => f.FaturaPagamentos).FirstOrDefault(f => f.Id == faturaPagamento.CodigoFatura);
+
+            if(fatura != null)
+            {
+                AtualizarStatusFatura(fatura);
+            }
 
             return faturaPagamento;
         }
@@ -47,10 +55,54 @@ namespace api_contas_pagar
 
         public FaturaPagamento Salvar(FaturaPagamento faturaPagamento)
         {
+            var fatura = _connectionContext.Faturas.Find(faturaPagamento.CodigoFatura);
+
+            if(fatura == null)
+            {
+                throw new Exception($"Fatura de código {faturaPagamento.CodigoFatura} não encontrado.");
+            }
+
+            var pagamento = _connectionContext.Pagamentos.Find(faturaPagamento.CodigoPagamento);
+
+            if(pagamento == null)
+            {
+                throw new Exception($"Pagamento de código {faturaPagamento.CodigoPagamento} não encontrado.");
+            }
+
            _connectionContext.FaturaPagamentos.Add(faturaPagamento);
            _connectionContext.SaveChanges();
 
+            AtualizarStatusFatura(fatura);
+
             return faturaPagamento;
+        }
+
+        public void AtualizarStatusFatura(Fatura fatura)
+        {
+            decimal somaPagamentos = fatura.FaturaPagamentos.Sum(fp => fp.ValorPago);
+
+            if(DateTime.Now > fatura.Data_vencimento)
+            {
+                fatura.Status = StatusFatura.Vencida;
+            }else
+            {
+                if(somaPagamentos == 0)
+                {
+                    fatura.Status = StatusFatura.Pendente;
+                }
+                else if(somaPagamentos < fatura.Valor)
+                {
+                    fatura.Status = StatusFatura.ParcialmentePago;
+                }
+                else if(somaPagamentos >= fatura.Valor)
+                {
+                    fatura.Status = StatusFatura.Pago;
+                }
+            }
+
+
+            _connectionContext.Faturas.Update(fatura);
+            _connectionContext.SaveChanges();
         }
     }
 }

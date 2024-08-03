@@ -26,9 +26,10 @@ namespace api_contas_pagar
             return faturasPagamentos;
         }
 
-        public FaturaPagamento ListarPorId(int id)
+        public FaturaPagamento ListarPorId(int codigoPagamento, int codigoFatura)
         {
-            var faturaPagamento = _connectionContext.FaturaPagamentos.Where(fp => fp.Id == id).FirstOrDefault();
+            var faturaPagamento = _connectionContext.FaturaPagamentos.Where(fp => fp.CodigoPagamento == codigoPagamento &&
+                                                                                  fp.CodigoFatura == codigoFatura).FirstOrDefault();
 
             if(faturaPagamento == null)
             {

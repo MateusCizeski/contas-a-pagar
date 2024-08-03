@@ -28,12 +28,15 @@ CREATE TABLE Pagamento (
     FOREIGN KEY (CodigoMetodoPagamento) REFERENCES MetodoPagamento(CodigoMetodoPagamento)
 );
 
-CREATE TABLE FaturaPagamento (
-    CodigoFatura INT NOT NULL,
-    CodigoPagamento INT NOT NULL,
-    PRIMARY KEY (CodigoFatura, CodigoPagamento),
-    FOREIGN KEY (CodigoFatura) REFERENCES Fatura(CodigoFatura),
-    FOREIGN KEY (CodigoPagamento) REFERENCES Pagamento(CodigoPagamento)
+CREATE TABLE contas_pagar.fatura_pagamentos (
+    id SERIAL,
+    fatura_id INT NOT NULL,
+    pagamento_id INT NOT NULL,
+    valor_pago DECIMAL(10, 2) NOT NULL,
+    PRIMARY KEY (fatura_id, pagamento_id),
+    UNIQUE (id),
+    FOREIGN KEY (fatura_id) REFERENCES contas_pagar.faturas(id),
+    FOREIGN KEY (pagamento_id) REFERENCES contas_pagar.pagamentos(id)
 );
 
 CREATE TABLE contas_pagar.Metodo_Pagamento (

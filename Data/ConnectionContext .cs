@@ -39,6 +39,8 @@ namespace api_contas_pagar
                 .HasOne(p => p.MetodoPagamento)
                 .WithMany(m => m.Pagamentos)
                 .HasForeignKey(p => p.CodigoMetodoPagamento);
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

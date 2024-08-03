@@ -40,6 +40,12 @@ namespace api_contas_pagar
                 .WithMany(m => m.Pagamentos)
                 .HasForeignKey(p => p.CodigoMetodoPagamento);
 
+            modelBuilder.Entity<Pagamento>()
+               .HasOne(p => p.Fatura)
+               .WithMany(f => f.Pagamentos)
+               .HasForeignKey(p => p.CodigoFatura)
+               .OnDelete(DeleteBehavior.Restrict);
+
             base.OnModelCreating(modelBuilder);
         }
     }

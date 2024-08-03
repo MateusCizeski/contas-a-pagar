@@ -18,7 +18,7 @@ namespace api_contas_pagar
             Pagamento pagamento = new Pagamento()
             {
                 Valor_pagamento = dto.Valor_pagamento,
-                Data_pagamento = dto.Data_pagamento,
+                Data_pagamento = DateTime.UtcNow,
                 CodigoMetodoPagamento = dto.CodigoMetodoPagamento
             };
 

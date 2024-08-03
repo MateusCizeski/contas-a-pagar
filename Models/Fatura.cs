@@ -25,6 +25,11 @@ namespace api_contas_pagar.Models
 
         [Column("status")]
         public StatusFatura Status { get; set; }
+
+        [Column("codigo_pagamento")]
+        public int? CodigoPagamento { get; set; }
+
+        public ICollection<Pagamento> Pagamentos { get; set; }
         public Fornecedor Fornecedor { get; set; }
         public ICollection<FaturaPagamento> FaturaPagamentos { get; set; }
     }
@@ -38,6 +43,9 @@ namespace api_contas_pagar.Models
         ParcialmentePago = 2,
 
         [Description("Pago")]
-        Pago = 3
+        Pago = 3,
+
+        [Description("Vencida")]
+        Vencida = 4
     }
 }
